@@ -1,15 +1,26 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+ 
+  <book-item :book="book" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BookItem from './components/BookItem.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    BookItem
+  },
+
+  setup(){
+
+    const book = {
+      title:'The Cherry Orchard',
+      author:'Anton Chekhov'
+    }
+
+    return {book}
+
   }
 }
 </script>
