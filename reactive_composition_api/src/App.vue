@@ -1,20 +1,23 @@
 <template>
 <div>
-  <book-list :books="books" />
+  <book-list :books="books" @select="selectBook"/>
 
   <book-search @search-by="filterBooks" />
+
+  <BookDetails/>
 
 </div>
 </template>
 
 <script>
 import BookList from "./components/BookList.vue";
-import BookSearch from "./components/BookSearch"
+import BookSearch from "./components/BookSearch";
+import BookDetails from './componentss/BookDetails'
 
 export default {
   name: "App",
   components: {
-    BookList,BookSearch
+    BookList,BookSearch, BookDetails
   },
 
   setup() {
@@ -32,9 +35,14 @@ export default {
     function filterBooks(query){
       console.log(query)
     }
+
+    function selectBook(id){
+      console.log(id)
+    }
     return {
       books,
-      filterBooks
+      filterBooks,
+      selectBook
     };
   },
 };

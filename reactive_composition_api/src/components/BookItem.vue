@@ -2,6 +2,9 @@
   <div class="book-item">
     <div>{{book.title}}</div>
     <div>{{book.author}}</div>
+    <div>
+      <button @click="select">Select</button>
+    </div>
   </div>
 </template>
 
@@ -10,6 +13,15 @@ export default {
   name: "BookItem",
   props: {
     book: Object,
+  },
+
+  setup(props, context) {
+    function select() {
+      context.emit("select", props.book.id);
+    }
+    return {
+      select,
+    };
   },
 };
 </script>
