@@ -1,60 +1,66 @@
 <template>
-<div>
-  <book-list :books="books" @select="selectBook"/>
+  <div>
+    <book-list :books="state.filteredBooks" />
 
-  <book-search @search-by="filterBooks" />
+    <book-search @search-by="filterBooks" />
 
-  <BookDetails/>
-
-</div>
+    <BookDetails />
+  </div>
 </template>
 
 <script>
 import BookList from "./components/BookList.vue";
 import BookSearch from "./components/BookSearch";
-import BookDetails from './componentss/BookDetails'
+import BookDetails from "./components/BookDetails";
+import { reactive } from "vue";
+
+const books = [
+  {
+    id: 1,
+    title: "The Cherry Orchard",
+    author: "Anton Chekhov",
+  },
+  { id: 2, title: "Ivanov", author: "Tom Chekhov" },
+];
+
+function isInQuery(query) {
+  return function (book) {
+    return (
+      (!query.title ||
+        book.title.toLowerCase().includes(query.title.toLowerCase())) &&
+      (!query.author ||
+        book.author.toLowerCase().includes(query.author.toLowerCase()))
+    );
+  };
+}
 
 export default {
   name: "App",
   components: {
-    BookList,BookSearch, BookDetails
+    BookList,
+    BookSearch,
+    BookDetails,
   },
 
   setup() {
-    const books = [
-      {
-        title: "The Cherry Orchard",
-        author: "Anton Chekhov",
-      },
-      {
-        title: "Ivanov",
-        author: "Tom Chekhov",
-      },
-    ];
+    const state = reactive({
+      filteredBooks: books,
+    });
 
-    function filterBooks(query){
-      console.log(query)
+    function filterBooks(query) {
+      state.filteredBooks = books.filter(isInQuery(query));
     }
 
-    function selectBook(id){
-      console.log(id)
-    }
+    // function selectBook(id) {
+    //   console.log(id);
+    // }
     return {
-      books,
+      state,
       filterBooks,
-      selectBook
     };
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>

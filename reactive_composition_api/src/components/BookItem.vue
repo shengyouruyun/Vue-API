@@ -28,9 +28,9 @@ export default {
 
 <style>
 .book-item {
-  display: flex;
+  
 }
 .book-item > div {
-  flex: 1;
+ 
 }
 </style>

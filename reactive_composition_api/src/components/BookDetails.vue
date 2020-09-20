@@ -29,4 +29,6 @@ export default {
 </script>
 
 <style>
+.book-details {
+margin-top: 24px;}
 </style>
